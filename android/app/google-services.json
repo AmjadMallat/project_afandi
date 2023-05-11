@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "49007073036",
+    "project_id": "senior-hekmat",
+    "storage_bucket": "senior-hekmat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49007073036:android:7acdab32dffed565d01b29",
+        "android_client_info": {
+          "package_name": "com.example.senior_hekmat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49007073036-n9t41cq3595m908q2mkqjtoi1i0kq8qj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzdAZuUTQnK2JCYCd0fWj5KZ0sXXVfmZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49007073036-n9t41cq3595m908q2mkqjtoi1i0kq8qj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
