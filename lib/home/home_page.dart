@@ -1,9 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:senior_hekmat/components/favorites.dart';
 import 'package:senior_hekmat/home/addpost_page.dart';
 import 'package:senior_hekmat/home/postCard.dart';
+import 'package:senior_hekmat/home/search_screen.dart';
 import 'package:senior_hekmat/models/post.dart';
+import 'package:senior_hekmat/models/user.dart';
+
+import '../auth_page.dart/provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,10 +19,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+//w he home page la etlob fya posts mn 5lel query firebase
 
-//w he home page la etlob fya posts mn 5lel query firebase 
-
- @override
+  @override
   void initState() {
     super.initState();
     getPost();
@@ -33,9 +38,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> getPost() async {
     List<Post> results = [];
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection("posts")
-          .get();
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection("posts").get();
 
       results = querySnapshot.docs.map((e) => Post.fromSnap(e)).toList();
       print("success");
@@ -53,106 +57,136 @@ class _HomePageState extends State<HomePage> {
     FirebaseAuth.instance.signOut();
   }
 
-  
   @override
   Widget build(BuildContext context) {
-
-return Scaffold(
-  appBar: AppBar(
-    leading: IconButton(onPressed: (){
-signUserOut();
-              }, icon: Icon(Icons.arrow_back,size: 30,),color: Colors.orange,),
-    elevation: 0,
-    backgroundColor: Colors.white,
-  ),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => AddPost()),
-);
-      },
-child: Icon(Icons.add),
-backgroundColor: Colors.orange.withOpacity(.6),
-),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            signUserOut();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            size: 30,
+          ),
+          color: Colors.orange,
+        ),
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchScreen()),
+          );
+        },
+        child: Icon(Icons.search),
+        backgroundColor: Colors.orange,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-      
-            Padding(
-              padding: const EdgeInsets.only(left:10.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text("      Welcome to\nAfandi Application",
-                style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),
-                ),
-              ),
-            ),
-      
-       SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                padding: EdgeInsets.only(),
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-                    PostTitle(title:"All", active: true,),
-                    PostTitle(title:"Beirut", ),
-                    PostTitle(title:"Tripoli",),
-                    PostTitle(title:"Akkar", ),
-                    PostTitle(title:"Sayda", ),
-                    PostTitle(title:"Bekaa", ),
-                  ],
-                ),
-              ),
-       Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.orange),
-              ),
-              child: Icon(Icons.search,size: 25,),
-            ),
-      
-              SizedBox(
-                height: 0,
-              ),
-              Container(
-                height: 660,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 0.0),
-      
-                   child: ListView.builder(
-                    itemCount: product.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return FoodCard(
-                        post: product[index],
-                      );
-                    },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Welcome to Afandi App",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Favorites()),
+                      );
+                    },
+                    icon: Icon(Icons.favorite_border)),
+              ],
+            ),
+
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    padding: EdgeInsets.only(),
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  PostTitle(
+                    title: "All",
+                    active: true,
+                  ),
+                  PostTitle(
+                    title: "Beirut",
+                  ),
+                  PostTitle(
+                    title: "Tripoli",
+                  ),
+                  PostTitle(
+                    title: "Akkar",
+                  ),
+                  PostTitle(
+                    title: "Sayda",
+                  ),
+                  PostTitle(
+                    title: "Bekaa",
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            //  Container(
+            //         alignment: Alignment.centerLeft,
+            //         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            //         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            //         height: 50,
+            //         width: double.infinity,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(20),
+            //           border: Border.all(color: Colors.orange),
+            //         ),
+            //         child: Icon(Icons.search,size: 25,),
+            //       ),
+
+            SizedBox(
+              height: 40,
+            ),
+            Container(
+              height: 660,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0.0),
+                child: ListView.builder(
+                  itemCount: product.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return FoodCard(
+                      post: product[index],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-      );
-    
-
-
-
+    );
   }
 }
 
@@ -160,17 +194,19 @@ class PostTitle extends StatelessWidget {
   final String title;
   final bool active;
   const PostTitle({
-    super.key, required this.title,  this.active=false,
+    super.key,
+    required this.title,
+    this.active = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 40),
-      child: Text(title,
-      style:Theme.of(context).textTheme.button?.copyWith(color:active?Colors.grey:Colors.black.withOpacity(0.4)),
-      
- 
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.button?.copyWith(
+            color: active ? Colors.grey : Colors.black.withOpacity(0.4)),
       ),
     );
   }

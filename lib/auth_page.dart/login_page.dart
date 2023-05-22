@@ -217,18 +217,6 @@ GestureDetector(
 ),
 
 
-//                    TextButton(
-//             style: TextButton.styleFrom(
-//               textStyle: const TextStyle(fontSize: 20),
-//             ),
-//             onPressed: () {
-//   Navigator.push(
-//     context,
-//     MaterialPageRoute(builder: (context) => const RegisterPage()),
-//   );
-// },
-//             child: const Text('Register now',style: TextStyle(color: Colors.orange),),
-//           ),
                   ],
                 ),
                 SizedBox(

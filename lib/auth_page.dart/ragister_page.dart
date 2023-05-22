@@ -96,6 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
       phoneNumber: phoneNumber,
       uid: uid,
       favorites: [],
+      profile: "",
     );
     await FirebaseFirestore.instance
         .collection('users')

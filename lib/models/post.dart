@@ -8,12 +8,18 @@ class Post {
   final String price;
   final String description;
   final String image;
+  final String pid;
+  // final String uid;
+
 
   Post({
     required this.title,
     required this.price,
     required this.description,
     required this.image,
+    required this.pid,
+    // required this.uid,
+
   });
 
   Map<String, dynamic> toJson() => {
@@ -21,6 +27,9 @@ class Post {
         "price": price,
         "description": description,
         "image": image,
+        "pid": pid,
+        // "uid": uid,
+
       };
 
   static Post fromJson(Map<String, dynamic> map) => Post(
@@ -28,6 +37,9 @@ class Post {
         price: map["price"],
         description: map["description"],
         image: map["image"],
+        pid: map["pid"],
+        // uid: map["uid"],
+
       );
 
   static Post fromSnap(DocumentSnapshot snap) {
@@ -38,6 +50,10 @@ class Post {
       price: snapshot["price"],
       description: snapshot["description"],
       image: snapshot["image"],
+      pid: snapshot["pid"],
+      // uid: snapshot["uid"],
+
+
     );
   }
 }

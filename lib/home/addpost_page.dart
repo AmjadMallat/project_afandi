@@ -3,7 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:senior_hekmat/components/button.dart';
+
+import '../auth_page.dart/provider/provider.dart';
+import '../models/user.dart';
 
 
 //he page add post 3n tari2 l user  w b3mla add 3l firebase mtl ma b3ml add ll user details
@@ -60,12 +64,19 @@ class _AddPostState extends State<AddPost> {
 //details user
   Future addPostDetails(
       String title, String price, String description, String imageUrl) async {
+        // Users user = Provider.of<UserProvider>(context, listen: false).getUser;
+        DocumentReference Ref =
     await FirebaseFirestore.instance.collection('posts').add({
       'title': title,
       'price': price,
       'description': description,
       'image': imageUrl,
+      // 'uid':user.uid,
     });
+       //get post id
+    String pid = Ref.id;
+    //update firbase with pid
+    Ref.update(<String, dynamic>{"pid": pid});
   }
 
   @override

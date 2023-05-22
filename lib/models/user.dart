@@ -10,6 +10,7 @@ class Users {
   final String phoneNumber;
   final String uid;
   final List<String> favorites;
+  final String profile;
 
 
   Users({
@@ -19,6 +20,8 @@ class Users {
     required this.uid,
     required this.favorites,
     required this.phoneNumber,
+    required this.profile,
+
 
   });
 
@@ -28,8 +31,8 @@ class Users {
         "Email": email,
         "uid": uid,
         "favorites": favorites,
-
         "phoneNumber": phoneNumber,
+        "profile": profile,
 
 
 
@@ -42,6 +45,8 @@ class Users {
         uid: map["uid"],
         favorites: map["favorites"],
         phoneNumber: map["phoneNumber"],
+        profile: map["profile"],
+
 
 
       );
@@ -50,7 +55,6 @@ class Users {
     var snapshot = snap.data() as Map<String, dynamic>;
     // List<String> newPost=List<String>.from(snapshot["posts"]);
     List<String> favorites = List<String>.from(snapshot["favorites"]);
-List<String> addFriends = List<String>.from(snapshot["addFriends"]);
     return Users(
       firstName: snapshot["First name"],
       lastName: snapshot["Last name"],
@@ -58,6 +62,7 @@ List<String> addFriends = List<String>.from(snapshot["addFriends"]);
       uid: snapshot["uid"],
       favorites: favorites,
       phoneNumber: snapshot["phoneNumber"],
+      profile: snapshot["profile"],
 
 
     );
