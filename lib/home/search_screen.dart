@@ -12,6 +12,8 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
+
+//hon lal search page li ana b2dr mn 5lela a3ml search 3la post 7sb title tb3o iza mwjod aw laa
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
 
@@ -25,6 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final querySnapshot = await FirebaseFirestore.instance
         .collection('posts')
+        //hon ana hed l controller hwa li b3ml fi l filter la a3rf iza post mwjod 
         .where("title", isEqualTo: _searchController.text)
         .get();
 

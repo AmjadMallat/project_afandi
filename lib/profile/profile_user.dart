@@ -10,13 +10,15 @@ import 'package:provider/provider.dart';
 import '../auth_page.dart/provider/provider.dart';
 import '../models/user.dart';
 
+//hon hye l profile page tb3it kl user mwsole b user provider li hwa bi7dd mn l cureent user li ft7 l app hl2 
+//m3 ntft design w fi y3ml add la profile url imgae
 class PorfileUser extends StatelessWidget {
   const PorfileUser({super.key});
 
   @override
   Widget build(BuildContext context) {
     Users user = Provider.of<UserProvider>(context,listen: false).getUser;
- String profileUrl='';
+ String profile='';
     return
     user== null
         ? const CircularProgressIndicator()
@@ -51,8 +53,6 @@ class PorfileUser extends StatelessWidget {
                   Container(
                     height: 80,
                     width: 80,
-                    // child: user. != ""
-                    //     ?
                         child: CircleAvatar(
                             radius: 80,
                             backgroundImage: NetworkImage(user.profile),
@@ -60,7 +60,7 @@ class PorfileUser extends StatelessWidget {
                           
                   ),
 
-                  //number of posts, followers, following
+                 
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -68,7 +68,7 @@ class PorfileUser extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "7",
+                              "0",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
@@ -83,7 +83,7 @@ class PorfileUser extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "230",
+                              "0",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
@@ -98,7 +98,7 @@ class PorfileUser extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "400",
+                              "0",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
@@ -160,7 +160,6 @@ class PorfileUser extends StatelessWidget {
       
                       //step 2 upload the image to firebase storage
       
-                      //get a reference to storage root
                       Reference referenceRoot = FirebaseStorage.instance.ref();
                       Reference referenceDirImages =
                           referenceRoot.child("profiles");
@@ -173,9 +172,9 @@ class PorfileUser extends StatelessWidget {
                         //store the file
                         await referenceImageToUpload.putFile(File(file.path));
                         //get the url
-                        profileUrl = await referenceImageToUpload.getDownloadURL();
+                        profile = await referenceImageToUpload.getDownloadURL();
                         User currentUser = FirebaseAuth.instance.currentUser!;
-                        FirebaseFirestore.instance.collection("users").doc(currentUser.uid).update(<String,dynamic>{"profile":profileUrl});
+                        FirebaseFirestore.instance.collection("users").doc(currentUser.uid).update(<String,dynamic>{"profile":profile});
                       } catch (error) {}
                                 },
                                 child: Text("Edit Profile")),

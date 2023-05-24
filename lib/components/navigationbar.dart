@@ -8,12 +8,16 @@ import 'package:senior_hekmat/profile/profile_user.dart';
 import '../auth_page.dart/provider/provider.dart';
 import '../models/user.dart';
 
+
+//hon he navigator la sir natnet ben kl page w tenye 
+
 class NavigatorPage extends StatefulWidget {
   const NavigatorPage({super.key});
 
   @override
   State<NavigatorPage> createState() => _NavigatorPageState();
 }
+//hool icon la 7ta a3rf ana b aya page
 
 class _NavigatorPageState extends State<NavigatorPage> {
    final items = const [
@@ -79,6 +83,9 @@ class _NavigatorPageState extends State<NavigatorPage> {
       ),
     );
   }
+
+
+// siwtch la tn2l ben kl page w tenye 7sb l index
 
   Widget getSelectedWidget({required int index}) {
     Widget widget;

@@ -7,6 +7,9 @@ import 'package:senior_hekmat/models/user.dart';
 import '../auth_page.dart/provider/provider.dart';
 import '../home/postCard.dart';
 
+
+//hon fi list lal favorites li ana 3ml 3lyon like fa bisiro ytl3o 3ndi bhl page
+
 class Favorites extends StatefulWidget {
   const Favorites({super.key});
 
@@ -25,7 +28,7 @@ class _FavoritesState extends State<Favorites> {
 
   List<Post> list = [];
 
-//to add a new post
+//he function l post li bdi es7bo mn firebase
   Future<void> getPost() async {
     List favorites = [];
     Users user = Provider.of<UserProvider>(context).getUser;
@@ -33,6 +36,7 @@ class _FavoritesState extends State<Favorites> {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection("posts")
+          //hon ana b3rf iza hl post favorite aw laa mn5lel l filter
           .where("pid", whereIn: favorites)
           .get();
       setState(() {

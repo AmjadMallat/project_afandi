@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../models/user.dart';
 
+
+//hon hye l function tb3it l user provider li mn 5lela ana b2dr a3rf sho hwa l user li 3ml login now 
+
 class UserProvider with ChangeNotifier {
   Users? _user;
   Users get getUser => _user!;
